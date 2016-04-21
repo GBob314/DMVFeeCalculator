@@ -34,6 +34,7 @@ using System.Windows.Forms;
 
   
  */
+
 namespace DMVFeeCalculator
 {
     public partial class Form1 : Form
@@ -55,6 +56,9 @@ namespace DMVFeeCalculator
 
         //$8.00 Smog Waiver Fee (used if vehicle is Gas AND (current year - model year) < 4)
         private const int smogWaiver = 8;
+
+        //Stanislaus County Sales Tax
+        private const decimal salesTax = 0.07625M;
 
         private int prevSellAmnt;
 
@@ -78,7 +82,7 @@ namespace DMVFeeCalculator
             int vehicleAge = DateTime.Now.Year - vehicleYear;
             prevSellAmnt = Int32.Parse(this.prevSellPrice.Text);
 
-            //Calculate Vehicle License Fees.
+            //Calculate Vehicle License Fees. I mean I guess I could use switch statements ¯\_(ツ)_/¯
             if (vehicleAge < 4)
             {
                 VLF = (prevSellAmnt * DMVMultiplier) + stanCountyAmount + CABaseFee + smogAbatement + smogWaiver;
@@ -92,9 +96,9 @@ namespace DMVFeeCalculator
                 VLF = (prevSellAmnt * DMVMultiplier) + stanCountyAmount + CABaseFee;
             }
 
-            VLF += VLF * 0.07625M;
+            VLF += VLF * salesTax;
 
-            //Calculate DMV Late Fees. Hold on tight for the if waterfall.
+            //Calculate DMV Late Fees. Hold on tight for the if waterfall, round 2 ¯\_(ツ)_/¯
             if (this.radioNotLate.Checked)
             {
                 lateFee = 0;
