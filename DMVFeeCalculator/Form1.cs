@@ -94,7 +94,7 @@ namespace DMVFeeCalculator
 
             VLF += VLF * 0.07625M;
 
-            //Calculate DMV Late Fees.
+            //Calculate DMV Late Fees. Hold on tight for the if waterfall.
             if (this.radioNotLate.Checked)
             {
                 lateFee = 0;
